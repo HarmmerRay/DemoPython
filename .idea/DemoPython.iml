@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.9 (pythonDemo)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/第一阶段/第五章_函数" />
+        <option value="$MODULE_DIR$/第一阶段/第四章_循环语句" />
+        <option value="$MODULE_DIR$/第一阶段/第二章" />
+        <option value="$MODULE_DIR$/第一阶段/第三章_判断语句" />
+        <option value="$MODULE_DIR$/第一阶段/第七章_函数进阶" />
+      </list>
+    </option>
+  </component>
+</module>
