@@ -32,4 +32,7 @@ print(result)
 
 # 案例练习
 # 邮箱
-result = re.match(r"^[\w-]+(\.[\w-]+)*@(qq|com|gmail)(\.[\w-]+)+$")
+result = r"(^[\w-]+(\.[\w-]+)*@(qq|com|gmail)(\.[\w-]+)+$)"
+s = 'a.b.c.d.e.f.g@qq.com.a.z.q.d.e'
+print(re.findall(result, s))
+
