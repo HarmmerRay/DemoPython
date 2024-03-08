@@ -3,9 +3,31 @@ import xlwt
 from bs4 import BeautifulSoup
 import re
 import openpyxl
+from openpyxl.styles import Font
 
 datas = []
 page = 0
+
+type_words = [
+    "动作", "喜剧", "剧情", "悬疑", "惊悚", "科幻", "奇幻", "恐怖",
+    "爱情", "战争", "历史", "音乐", "西部", "青春", "家庭", "儿童",
+    "体育", "传记", "冒险", "犯罪", "纪录片", "歌舞", "情色", "灾难",
+    "黑色电影", "治愈系", "武侠", "军事", "校园", "励志", "侦探",
+    "超级英雄", "动画", "网络", "实验", "独立", "短片", "长片", "默片",
+    "同性"
+]
+
+
+def get_str(s: int, e: int, ch: str):
+    result = ''
+    for n in range(s + 1, e):
+        if n == e - 1:
+            result = result + str(info[n])
+            break
+        result = result + str(info[n]) + ch
+    return result
+
+
 while page <= 225:
     # 1、爬取数据
     url = f'https://movie.douban.com/top250?start={page}&filter='
@@ -18,10 +40,13 @@ while page <= 225:
     movies = soup.find_all("div", class_="item")
     for movie in movies:
         data = []
+        # 播放地址
         play_link = str(movie.find("a")["href"])
         data.append(play_link)
+        # 海报地址
         poster = str(movie.find("img")["src"])
         data.append(poster)
+        # 电影名称
         title = movie.find("span", class_="title").text
         data.append(title)
         info = movie.find("div", class_="bd").find("p").text.strip()
@@ -31,39 +56,25 @@ while page <= 225:
         try:
             end = info.index('主演')
         except ValueError:
-            try:end = info.index('主')
+            try:
+                end = info.index('主')
             except ValueError:
                 end = info.index(str(re.compile(r'''\d+''').findall(info.__str__())[0]).strip("\n"))
 
-        director = ""
-        for name in range(start + 1, end):
-            if name == end - 1:
-                director = director + str(info[name])
-                break
-            director = director + str(info[name]) + "·"
+        director = get_str(start, end, "·")
         data.append(director)
 
         start = end
         date = str(re.compile(r'''\d+''').findall(info.__str__())[0]).strip("\n")
         end = info.index(date)
 
-        main_actors = ""
-        for name in range(start + 1, end):
-            if name == end - 1:
-                main_actors = main_actors + info[name]
-                break
-            main_actors = main_actors + info[name] + "、"
+        main_actors = get_str(start, end, "、")
+        # 电影导演
         data.append(main_actors)
+        # 上映时间
         data.append(date)
         start = end
-        type_words = [
-            "动作", "喜剧", "剧情", "悬疑", "惊悚", "科幻", "奇幻", "恐怖",
-            "爱情", "战争", "历史", "音乐", "西部", "青春", "家庭", "儿童",
-            "体育", "传记", "冒险", "犯罪", "纪录片", "歌舞", "情色", "灾难",
-            "黑色电影", "治愈系", "武侠", "军事", "校园", "励志", "侦探",
-            "超级英雄", "动画", "网络", "实验", "独立", "短片", "长片", "默片",
-            "同性"
-        ]
+
         end += 2
         while True:
             try:
@@ -71,43 +82,32 @@ while page <= 225:
                 break
             except ValueError:
                 end += 1
-
-        publish_country = ""
-        for name in range(start + 1, end):
-            if name == end - 1:
-                publish_country += info[name]
-                break
-            publish_country += info[name] + "、"
+        # 发行国家
+        publish_country = get_str(start, end, "、")
         data.append(publish_country)
-
-        start = end
-        movie_type = ""
-        end = len(info) - 1
-        for name in range(start, end):
-            if name == end - 1:
-                movie_type += info[name]
-                break
-            movie_type += info[name] + "、"
+        # 电影类型
+        start = end - 1
+        end = len(info)
+        movie_type = get_str(start, end, "、")
         data.append(movie_type)
-
+        # 电影评分
         start = end
-
         rating_rating_count = str(movie.find("div", class_="star").text).strip().split("\n\n")
         rating = rating_rating_count[0]
         data.append(rating)
-
+        # 评分人数
         rating_count = rating_rating_count[1]
         data.append(rating_count)
 
+        # 电影主题
         try:
             theme_point = movie.find("span", class_="inq").text
-        except:
+        except AttributeError:
             theme_point = ""
         data.append(theme_point)
-        # print(data)
+
         datas.append(data)
     page += 25
-
 
 book = xlwt.Workbook(encoding='utf-8', style_compression=0)
 sheet = book.add_sheet("豆瓣电影TOP250", cell_overwrite_ok=True)
@@ -115,23 +115,38 @@ col = (
     '播放地址', '电影海报', '电影名称', '导演', '主演', '上映时间', '出品国家', '电影类型', '评分', '评价人数(人)',
     '灵魂动人点',
 )
-index = 0
+
+# 创建工作簿
+workbook = openpyxl.Workbook()
+
+# 选择工作表
+worksheet = workbook.active
+
+# 设置列宽
+for c in range(ord('A'), ord('K') + 1):
+    worksheet.column_dimensions[chr(c)].width = 20
+
+# 设置行高
+worksheet.row_dimensions[0].height = 40
+for row in range(1, 251):
+    worksheet.row_dimensions[row].height = 30
+
+# 写入数据
+index = 1
 for element in col:
-    sheet.write(0, index, element)
+    cell = worksheet.cell(row=1, column=index)
+    cell.value = f"{element}"
+    cell.font = Font(size=22)
     index += 1
-row_num = 1
-col_num = 0
+row_num = 2
+col_num = 1
 for val in datas:
     for element in val:
-        sheet.write(row_num, col_num, element)
+        cell = worksheet.cell(row=row_num, column=col_num)
+        cell.value = f'{element}'
         col_num += 1
     row_num += 1
-    col_num = 0
-book.save("./top250.xlsx")
+    col_num = 1
 
-workbook = openpyxl.load_workbook('./top250.xlsx')
-worksheet = workbook.active
-worksheet.column_dimension['A'].width = 30
-for row in worksheet.iter_rows():
-    row[0].row_height = 40
-workbook.save('top250.xlsx')
+# 保存文件
+workbook.save('top250_.xlsx')
