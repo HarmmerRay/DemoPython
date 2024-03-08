@@ -29,7 +29,7 @@ print(response)
 
 # 将数据转换为DataFrame
 df = pd.DataFrame(tr_tags[2:], columns=tr_tags[:2])  # 去除标题行
-
+print(df)
 # 将DataFrame写入Excel文件
 df.to_excel('output.xlsx', index=False)
 
