@@ -1,4 +1,3 @@
-
 import requests
 import xlwt
 from bs4 import BeautifulSoup
@@ -45,7 +44,7 @@ while True:  # 爬不到完整的数据一直爬
         for movie in movies:
             data = []
             # 播放地址
-            play_link = str(movie.  find("a")["href"])
+            play_link = str(movie.find("a")["href"])
             data.append(play_link)
             # 海报地址
             poster = str(movie.find("img")["src"])
@@ -151,16 +150,17 @@ index = 1
 for element in col:
     cell = worksheet.cell(row=1, column=index)
     cell.value = f"{element}"
+    # 格式化
     cell.font = Font(size=22)
     index += 1
 
-# 从第二行开始逐行写入
+# 从第二行开始逐行写入爬取到的电影数据
 row_num = 2
 col_num = 1
 for val in datas:
     for element in val:
         cell = worksheet.cell(row=row_num, column=col_num)
-        cell.value = f'{element}'
+        cell.value = f"{element}"
         col_num += 1
     row_num += 1
     col_num = 1
