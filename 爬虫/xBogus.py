@@ -161,6 +161,7 @@ class XBogus:
             query: list,
             params: int,
             timestamp: int):
+        print("实际生成X-Bogus")
         array = [
             64,
             0.00390625,
