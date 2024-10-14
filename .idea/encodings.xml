@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/zhixuan_ai_test/测试视频/AI口播/app.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zhixuan_ai_test/测试视频/ceshi.py" charset="GBK" />
     <file url="file://$PROJECT_DIR$/第一阶段/第十章_基础综合案例（数据可视化）/04_地图可视化基本使用.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/第一阶段/第十章_基础综合案例（数据可视化）/1960-2019全球GDP数据.csv" charset="GBK" />
   </component>
