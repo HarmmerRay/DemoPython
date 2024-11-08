@@ -8,7 +8,7 @@ import torch
 
 
 # # 加载视频
-# cap = cv2.VideoCapture('./test.mp4')
+# cap = cv2.VideoCapture('./demo.mp4')
 # # 创建一个级联分类器 加载一个.xml分类器文件 它既可以是Haar特征也可以是LBP特征的分类器
 # face_detect = cv2.CascadeClassifier(r'./haarcascade_frontalface_default.xml')
 #
@@ -273,7 +273,7 @@ def process_videos(video_paths):
     return results
 
 
-video_pathA = './test.mp4'
+video_pathA = './demo.mp4'
 video_pathB = "./test2_65s.mp4"
 cascade_path = '../../zhixuan_ai/ai_test/ai_video/models/haarcascade_frontalface_default.xml'
 # print("Detect_faceB 21s原视频…………………………")
