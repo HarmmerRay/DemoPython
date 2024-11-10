@@ -15,9 +15,10 @@ def generate_image():
                           {"size": "2048x1080", "geometry1": "+0+0", "geometry2": "+0+240", "geometry3": "+0+500",
                            "yellow_box_size": "1600x268", "font_size1": "160", "font_size2": "180",
                            "font_size3": "150", "strokewidth": "0"},
-                          {"size": "4096x2160", "geometry1": "+0+0", "geometry2": "+0+450", "geometry3": "+0+960",
-                           "yellow_box_size": "3296x470","red_box_size": "4096x390", "font_size1": "300", "font_size2": "320",
-                           "font_size3": "260", "strokewidth": "40"},
+                          {"size": "4096x2160", "geometry1": "+0+0", "geometry2": "+0+375", "geometry3": "+0+820",
+                           "yellow_box_size": "3296x400", "red_box_size": "4096x380", "font_size1": "250",
+                           "font_size2": "282",
+                           "font_size3": "230", "strokewidth": "40"}
                           ]
     size_position = size_position_list[3]
     command = [
@@ -32,7 +33,7 @@ def generate_image():
         '-pointsize', size_position['font_size1'],
         '-font', './SourceHanSansSC-Bold-2.otf',
         '-gravity', 'north',
-        'label:智选AI带货系统',  # 仅作为描边的轮廓
+        'label:帛书老子道德经简体版',  # 仅作为描边的轮廓
         ')',
         '-geometry', size_position['geometry1'],
         '-composite',
@@ -45,7 +46,7 @@ def generate_image():
         '-pointsize', size_position['font_size1'],
         '-font', './SourceHanSansSC-Bold-2.otf',
         '-gravity', 'north',
-        'label:智选AI带货系统',
+        'label:帛书老子道德经简体版',
         ')',
         '-geometry', size_position['geometry1'],
         '-composite',
@@ -63,7 +64,7 @@ def generate_image():
         '-pointsize', size_position['font_size2'],
         '-font', './SourceHanSansSC-Bold-2.otf',
         '-gravity', 'north',
-        'label:智选AI带货系统统统统',
+        'label:名家线装经典赠视频课',
         ')',
         '-geometry', size_position['geometry2'],
         '-composite',
@@ -83,7 +84,7 @@ def generate_image():
         '-pointsize', size_position['font_size3'],
         '-font', './SourceHanSansSC-Bold-2.otf',
         '-gravity', 'north',
-        'label:网友：智选AI带货系统',
+        'label:',
         ')',
         '-geometry', size_position['geometry3'],
         '-composite',
