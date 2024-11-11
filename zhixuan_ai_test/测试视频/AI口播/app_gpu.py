@@ -17,54 +17,6 @@ model_dir = '/home/ubuntu/ChatTTS-Model'
 chat = ChatTTS.Chat()
 chat.load(source='local', custom_path=model_dir, compile=False)
 
-
-def num_to_chinese(num):
-    """将数字转换为汉字"""
-    chinese_digits = {
-        '0': '零', '1': '一', '2': '二', '3': '三', '4': '四',
-        '5': '五', '6': '六', '7': '七', '8': '八', '9': '九'
-    }
-    units = ['', '十', '百', '千']
-
-    def convert(num_str):
-        if len(num_str) == 1:
-            return chinese_digits[num_str]
-
-        result = []
-        for i, digit in enumerate(reversed(num_str)):
-            if digit != '0':
-                result.append(chinese_digits[digit] + units[i])
-            elif i > 0 and result and result[-1][-1] != '零':
-                result.append('零')
-
-        result.reverse()
-        return ''.join(result).replace('一十', '十').replace('零零', '零')
-
-    return convert(str(num))
-
-
-def convert_numbers_to_chinese(text):
-    """将文本中的数字转换为汉字"""
-
-    def replacer(match):
-        num_str = match.group(0)
-        if '.' in num_str:
-            integer_part, decimal_part = num_str.split('.')
-            return f"{num_to_chinese(integer_part)}点{num_to_chinese(decimal_part)}"
-        else:
-            return num_to_chinese(num_str)
-
-    # 使用正则表达式匹配数字
-    pattern = r'\d+(\.\d+)?'
-    return re.sub(pattern, replacer, text)
-
-
-def save_speaker_to_file(speaker_id, file_path):
-    with open(file_path, 'a', encoding='utf-8') as f:  # 'a' 表示追加模式
-        f.write(f"{speaker_id}\n")
-        f.write(f'----------')
-
-
 def text_to_speach(yinse, text, outpath):
     rand_spk = None
     if yinse == 1:
@@ -149,6 +101,51 @@ def generate_audio():
         print("generate_audio cost:", (datetime.datetime.now() - start).seconds, "s")
         return jsonify({'error': str(traceback.format_exc())}), 500
 
+def num_to_chinese(num):
+    """将数字转换为汉字"""
+    chinese_digits = {
+        '0': '零', '1': '一', '2': '二', '3': '三', '4': '四',
+        '5': '五', '6': '六', '7': '七', '8': '八', '9': '九'
+    }
+    units = ['', '十', '百', '千']
+
+    def convert(num_str):
+        if len(num_str) == 1:
+            return chinese_digits[num_str]
+
+        result = []
+        for i, digit in enumerate(reversed(num_str)):
+            if digit != '0':
+                result.append(chinese_digits[digit] + units[i])
+            elif i > 0 and result and result[-1][-1] != '零':
+                result.append('零')
+
+        result.reverse()
+        return ''.join(result).replace('一十', '十').replace('零零', '零')
+
+    return convert(str(num))
+
+
+def convert_numbers_to_chinese(text):
+    """将文本中的数字转换为汉字"""
+
+    def replacer(match):
+        num_str = match.group(0)
+        if '.' in num_str:
+            integer_part, decimal_part = num_str.split('.')
+            return f"{num_to_chinese(integer_part)}点{num_to_chinese(decimal_part)}"
+        else:
+            return num_to_chinese(num_str)
+
+    # 使用正则表达式匹配数字
+    pattern = r'\d+(\.\d+)?'
+    return re.sub(pattern, replacer, text)
+
+
+def save_speaker_to_file(speaker_id, file_path):
+    with open(file_path, 'a', encoding='utf-8') as f:  # 'a' 表示追加模式
+        f.write(f"{speaker_id}\n")
+        f.write(f'----------')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

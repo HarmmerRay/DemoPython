@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.9 (pythonDemo)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="py39" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="py39_GPU" project-jdk-type="Python SDK" />
 </project>
