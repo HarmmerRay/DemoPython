@@ -76,8 +76,8 @@ def generate_audio():
     yinse_id = int(data.get('yinse_id'))
     print("yinseId", yinse_id)
     text = data.get('text')
-    if len(text) > 500:
-        return jsonify({'error': '输入文本过长，请输入500字以内'}), 400
+    if len(text) > 600:
+        return jsonify({'error': '输入文本过长，请输入600字以内'}), 400
     text = convert_numbers_to_chinese(text)
     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "text", text)
     # 转为base64传回去

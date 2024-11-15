@@ -11,7 +11,7 @@ import os
 import os
 
 # Step 1: 使用 ffprobe 获取 input.mp4 的时长
-pipe = os.popen("ffprobe -v error -show_entries format=duration -of csv=p=0 %s" % "8_59s.mp4")
+pipe = os.popen("ffprobe -v error -show_entries format=duration -of csv=p=0 %s" % "yuan.mp4")
 duration = float(pipe.read().strip())
 print(duration)
 # Step 2: 拼接 ffmpeg 命令字符串
@@ -30,7 +30,7 @@ start_time = datetime.datetime.now()
 # 底部
 # ffmpeg_cmd = f"""ffmpeg -stream_loop -1 -i xiayu.mov -i input.mp4 -filter_complex "[0:v]format=argb,fade=in:st=0:d=1:alpha=1[ov];[1:v][ov]overlay=x=0:y=H*0.8:eof_action=repeat" -map 1:a -c:a copy -c:v rawvideo -pix_fmt yuv420p -preset ultrafast -t {duration} -y output.avi"""
 # 上下方
-ffmpeg_cmd = f"""ffmpeg -stream_loop -1 -i xiayu.mov -i input.mp4 -i xiayu.mov -filter_complex "[0:v]format=argb,fade=in:st=0:d=1:alpha=1[ov];[1:v][ov]overlay=x=0:y=H*-0.8:eof_action=repeat[av];[av][2:v]overlay=x=0:y=H*0.8:eof_action=repeat" -map 1:a -c:a copy -c:v rawvideo -pix_fmt yuv420p -preset ultrafast -t {duration} -y output.avi"""
+ffmpeg_cmd = f"""ffmpeg -stream_loop -1 -i xiayu.mov -i yuan.mp4 -i xiayu.mov -filter_complex "[0:v]format=argb,fade=in:st=0:d=1:alpha=1[ov];[1:v][ov]overlay=x=0:y=H*-0.8:eof_action=repeat[av];[av][2:v]overlay=x=0:y=H*0.8:eof_action=repeat" -map 1:a -c:a copy -c:v rawvideo -pix_fmt yuv420p -preset ultrafast -t {duration} -y output.avi"""
 # 左上角
 # ffmpeg_cmd = f"""ffmpeg -stream_loop -1 -i xiayu.mov -i input.mp4 -filter_complex "[0:v]format=argb,fade=in:st=0:d=1:alpha=1,scale=iw*1.5:ih*1.5,crop=1080*0.2:1920*0.2:1080*0.2:1920*0.2[ov];[1:v][ov]overlay=x=0:y=0:eof_action=repeat" -map 1:a -c:a copy -c:v rawvideo -pix_fmt yuv420p -preset ultrafast -t {duration} -y output.avi"""
 # 右上角
