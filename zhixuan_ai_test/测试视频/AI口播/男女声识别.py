@@ -1,4 +1,6 @@
 # 根据男声女声的音频频率不同，判断男女声
+import random
+
 import librosa
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,16 +40,8 @@ def main(audio_file):
 
     print(f"音频文件 {audio_file} 的性别是: {gender}")
 
-    # 可视化基频
-    # plt.figure(figsize=(10, 4))
-    # plt.plot(f0, label='基频')
-    # plt.xlabel('时间帧')
-    # plt.ylabel('频率 (Hz)')
-    # plt.title('基频随时间变化')
-    # plt.legend()
-    # plt.show()
-
 if __name__ == "__main__":
-    for i in range(1,22):
-        audio_file = './mp3/'+str(i)+".mp3"
-        main(audio_file)
+    # for i in range(1,22):
+    #     audio_file = './mp3/'+str(i)+".mp3"
+    #     main(audio_file)
+    print(random.sample([1,2,3,4],1)[0])

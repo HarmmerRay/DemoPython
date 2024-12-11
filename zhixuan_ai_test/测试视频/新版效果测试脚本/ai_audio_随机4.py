@@ -40,19 +40,20 @@ keys = [
         "add_closing",
         "change_frame_order"
     ]
-# data['info'] = {key: random.randint(0, 1) for key in keys}
-data['info'] = {key: 1 for key in keys}
+data['info'] = {key: random.randint(0, 1) for key in keys}
+data['info']['visible_texture'] = 1
+# data['info'] = {key: 1 for key in keys}
 for i in fix_info:
     data['info'][i] = fix_info[i]
 
-url_list = dao.query2("select url from list order by id asc limit 100")
+url_list = dao.query2("select url from list order by id desc limit 300")
 
 # url_list = ['https://renyajun-1254809262.cos.ap-beijing.myqcloud.com//daihuo/sucai/5668eda3-91d8-11ef-aa54-84959735d760.mp4',
 #             'https://renyajun-1254809262.cos.ap-beijing.myqcloud.com//daihuo/sucai/c55ecca0-91d8-11ef-b91b-84959735d760.mp4',
 #             'https://renyajun-1254809262.cos.ap-beijing.myqcloud.com//daihuo/sucai/03fe513b-91d9-11ef-9b42-84959735d760.mp4']
 # # 请求地址
 # url2 = "http://127.0.0.1:5000/new_deal"
-url2 = "http://152.136.33.202:8080/new_deal"
+url2 = "http://192.144.178.153:8080/new_deal"
 
 visible_texture_pos = ['topLeft','topRight','bottomLeft','bottomRight','fullscreen', 'top', 'bottom', 'topBottom']
 # 循环发送20个POST请求
