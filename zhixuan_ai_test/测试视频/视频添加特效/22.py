@@ -4,6 +4,7 @@ import subprocess
 
 
 def exe(file):
+    # ffmpeg -i 22.mp4 -i 22.mp4 -filter_complex "gltransition=duration=4:offset=1:source=./ai_video/sucai/transition/CrossZoom.glsl" -y 22_out.mp4
     cmd = f"""ffmpeg -loglevel quiet -i zimu6.mp4 -i video6.mp4 -filter_complex "gltransition=duration=4:offset=1:source=./ai_video/sucai/transition/{file}" -y ./trans/{file}.mp4 """
     try:
         print(cmd)
